@@ -1,0 +1,105 @@
+.memories-page {
+    max-width: 760px;
+}
+
+.memories-header {
+    margin-bottom: var(--space-3xl);
+}
+
+.memories-eyebrow {
+    margin-bottom: var(--space-md);
+
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--color-text-muted);
+}
+
+.memories-header h1 {
+    margin-bottom: var(--space-md);
+
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: normal;
+    line-height: 1.1;
+}
+
+.memories-header p:last-child {
+    color: var(--color-text-muted);
+}
+
+.memory-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.form-group label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: var(--space-md);
+
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-surface);
+    color: var(--color-text);
+
+    outline: none;
+    transition: border-color .02s ease;
+}
+
+.form-group textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--color-accent);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
+.memory-submit {
+    align-self: flex-start;
+
+    padding: var(--space-sm) var(--space-lg);
+
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+
+    font-size: 0.9rem;
+
+    transition: 
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.memory-submit:hover {
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+}
+
+.form-help {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
