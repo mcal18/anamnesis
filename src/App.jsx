@@ -77,7 +77,7 @@ function App() {
               <FutureMe />
             </ProtectedRoute>}
           />
-          <Route path="/echo" element={
+          <Route path="/echo/:memoryId" element={
             <ProtectedRoute user={user}>
               <Echo />
             </ProtectedRoute>}

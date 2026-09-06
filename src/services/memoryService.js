@@ -1,4 +1,15 @@
-import { collection, addDoc, getDocs, query, where, orderBy, doc, updateDoc } from "firebase/firestore";
+import {
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    where,
+    orderBy,
+    doc,
+    updateDoc,
+    getDoc,
+    serverTimestamp,
+} from "firebase/firestore";
 import { db } from "./firebase";
 
 export async function createMemory(userId, memoryData) {
@@ -36,7 +47,7 @@ export async function getUnlockedMemories(userId) {
         memoriesRef,
         where('userId', '==', userId),
         where('sealed', '==', true),
-        where ('opened', '==', false),
+        where('opened', '==', false),
         where('unlockDate', '<=', new Date().toISOString().split('T')[0]),
         orderBy('unlockDate', 'asc')
     )
@@ -56,3 +67,32 @@ export async function markMemoryAsOpened(memoryId) {
         opened: true,
     })
 } 
+
+
+export async function getMemory(memoryId) {
+    const memoryRef = doc(db, 'memories', memoryId)
+
+    const memorySnapshot = await getDoc(memoryRef)
+
+    if (!memorySnapshot.exists()) {
+        return null
+    }
+
+    return {
+        id: memorySnapshot.id,
+        ...memorySnapshot.data(),
+    }
+}
+
+export async function createReflection(memoryId, userId, content) {
+    const reflectionsRef = collection(db, 'reflections')
+
+    const docRef = await addDoc(reflectionsRef, {
+        memoryId,
+        userId,
+        content,
+        createdAt: serverTimestamp(),
+    })
+
+    return docRef.id
+}

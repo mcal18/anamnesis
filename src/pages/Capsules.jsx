@@ -32,7 +32,7 @@ function Capsules() {
         try {
             await markMemoryAsOpened(memoryId)
             console.log('Memory marked as opened')
-            navigate('/echo')
+            navigate(`/echo/${memoryId}`)
         } catch (error) {
             console.error('Error marking memory as opened:', error)
         }
