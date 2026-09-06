@@ -1,5 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { createMemory, getUserMemories } from '../services/memoryService'
+import { auth } from '../services/firebase'
 import './Memories.css'
+
 
 function Memories() {
     const [formData, setFormData] = useState({
@@ -11,10 +14,63 @@ function Memories() {
         unlockDate: '',
     })
 
-    const handleSubmit = (event) => {
+    const [successMessage, setSuccessMessage] = useState('')
+    const [memories, setMemories] = useState([])
+
+    const loadMemories = async () => {
+        if (!auth.currentUser) {
+            return
+        }
+
+        try {
+            const userMemories = await getUserMemories(auth.currentUser.uid)
+            setMemories(userMemories)
+        } catch (error) {
+            console.error('Error loading memories', error)
+        }
+    }
+
+    useEffect(() => {
+        loadMemories()
+    }, [])
+
+    const handleSubmit = async (event) => {
         event.preventDefault()
 
-        console.log('Memory submitted:', formData)
+        if (!auth.currentUser) {
+            console.error('No authenticated user')
+            return
+        }
+
+        try {
+            await createMemory(auth.currentUser.uid, {
+                title: formData.title,
+                date: formData.date,
+                content: formData.content,
+                whyItMattered: formData.whyItMattered,
+                unlockDate: formData.unlockDate,
+                sealed: true,
+                opened: false,
+            })
+
+            console.log('Memory saved successfully')
+
+            setFormData({
+                title: '',
+                date: '',
+                content: '',
+                whyItMattered: '',
+                photo: null,
+                unlockDate: '',
+            })
+
+            setSuccessMessage('Your memory has been sealed.')
+
+            await loadMemories()
+
+        } catch (error) {
+            console.error('Error saving memory:', error)
+        }
     }
 
     return (
@@ -28,6 +84,26 @@ function Memories() {
                     Give something from today a place to return to.
                 </p>
             </div>
+
+            {successMessage && (
+                <p className="memory-success">
+                    {successMessage}
+                </p>
+            )}
+
+            {memories.length > 0 && (
+                <div className="saved-memories">
+                    <h2>Your memories</h2>
+
+                    {memories.map((memory) => (
+                        <article key={memory.id} className="saved-memory">
+                            <h3>{memory.title}</h3>
+                            <p>{memory.date}</p>
+                            <p>{memory.content}</p>
+                        </article>
+                    ))}
+                </div>
+            )}
 
             <form className="memory-form" onSubmit={handleSubmit}>
                 <div className="form-group">

@@ -1,0 +1,22 @@
+.capsule-open {
+    margin-top: var(--space-lg);
+
+    padding: var(--space-sm) var(--space-lg);
+
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+
+    background-color: transparent;
+    color: var(--color-text);
+
+    font-size: 0.9rem;
+
+    transition: 
+        background-color 0.2s ease
+        color 0.2s ease;
+}
+
+.capsule-open:hover {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+}

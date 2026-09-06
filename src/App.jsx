@@ -15,18 +15,25 @@ import Timeline from './pages/Timeline'
 import Capsules from './pages/Capsules'
 import ThenAndNow from './pages/ThenAndNow'
 import FutureMe from './pages/FutureMe'
+import Echo from './pages/Echo'
 
 
 function App() {
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
+      setLoading(false)
     })
 
     return unsubscribe
   }, [])
+
+  if (loading) {
+    return null
+  }
 
   return (
     <BrowserRouter>
@@ -68,6 +75,11 @@ function App() {
           <Route path="/future-me" element={
             <ProtectedRoute user={user}>
               <FutureMe />
+            </ProtectedRoute>}
+          />
+          <Route path="/echo" element={
+            <ProtectedRoute user={user}>
+              <Echo />
             </ProtectedRoute>}
           />
         </Routes>
