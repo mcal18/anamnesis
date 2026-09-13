@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createMemory, getUserMemories, deleteMemory } from '../services/memoryService'
+import { createMemory, getUserMemories, deleteMemory, } from '../services/memoryService'
 import { auth } from '../services/firebase'
 import './Memories.css'
 
@@ -58,7 +58,6 @@ function Memories() {
             console.error('Error deleting memory:', error)
         }
     }
-
 
     const handleSubmit = async (event) => {
         event.preventDefault()

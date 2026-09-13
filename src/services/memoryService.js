@@ -12,7 +12,9 @@ import {
     writeBatch,
     serverTimestamp,
 } from "firebase/firestore";
-import { db } from "./firebase";
+import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { db, auth } from "./firebase";
+import { type } from "firebase/firestore/pipelines";
 
 export async function createMemory(userId, memoryData) {
     const memoryRef = collection(db, 'memories')
@@ -174,4 +176,86 @@ export async function deleteMemory(memoryId, userId) {
     batch.delete(memoryRef)
 
     await batch.commit()
+}
+
+export async function deleteUserData(userId) {
+    const memoriesRef = collection(db, 'memories')
+    const reflectionsRef = collection(db, 'reflections')
+    const memoriesQuery = query(
+        memoriesRef,
+        where('userId', '==', userId)
+    )
+    const reflectionsQuery = query(
+        reflectionsRef,
+        where('userId', '==', userId)
+    )
+    const [memoriesSnapshot, reflectionsSnapshot] = await Promise.all([
+        getDocs(memoriesQuery),
+        getDocs(reflectionsQuery),
+    ])
+
+    for (const reflection of reflectionsSnapshot.docs) {
+        await deleteDoc(doc(db, 'reflections', reflection.id))
+    }
+
+    for (const memory of memoriesSnapshot.docs) {
+        await deleteDoc(doc(db, 'memories', memory.id))
+    }
+}
+
+export async function reauthenticateUser(password) {
+    if (!auth.currentUser) {
+        throw new Error('No authenticated user')
+    }
+
+    const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        password
+    )
+
+    await reauthenticateWithCredential(
+        auth.currentUser,
+        credential
+    )
+}
+
+export async function deleteUserAccount() {
+    if (!auth.currentUser) {
+        throw new Error('No authenticated user')
+    }
+    
+    await deleteUser(auth.currentUser)
+}
+
+export async function exportUserData(userId) {
+    const memories = await getUserMemories(userId)
+    const reflectionsRef = collection(db, 'reflections')
+    const reflectionsQuery = query(
+        reflectionsRef,
+        where ('userId', '==', userId)
+    )
+    const reflectionsSnapshot = await getDocs(reflectionsQuery)
+    const reflections = reflectionsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        memoryId: doc.data().memoryId,
+        content: doc.data().content,
+        createdAt: doc.data().createdAt?.toDate?.().toISOString() ?? null,
+    }))
+    const cleanedMemories = memories.map((memory) => ({
+        id: memory.id,
+        title: memory.title,
+        date: memory.date,
+        content: memory.content,
+        whyItMattered: memory.whyItMattered,
+        unlockDate: memory.unlockDate,
+        sealed: memory.sealed,
+        opened: memory.opened,
+        type: memory.type ?? 'memory',
+        createdAt: memory.createdAt?.toDate?.().toISOString() ?? null,
+    }))
+
+    return {
+        memories: cleanedMemories,
+        reflections,
+    }
 }
