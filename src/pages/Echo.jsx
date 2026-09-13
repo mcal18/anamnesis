@@ -92,11 +92,15 @@ function Echo() {
             </button>
 
             <div className="echo-intro">
+                <p className="echo-eyebrow">RETURN</p>
                 <h1>
                     {memory.type === 'future-letter'
                         ? 'A letter has returned to you'
                         : 'A memory has returned to you.'}
                 </h1>
+                <p className="echo-description">
+                    Something you chose to remember is waiting for you again.
+                </p>
             </div>
 
             <div className="echo-dates">

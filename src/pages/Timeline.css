@@ -4,20 +4,33 @@
 
 /* Header */
 .timeline-page>div:first-child {
+    max-width: 700px;
     margin-bottom: var(--space-3xl);
 }
 
-.timeline-page h1 {
+.timeline-eyebrow {
     margin-bottom: var(--space-md);
+
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--color-text-muted);
+}
+
+.timeline-page h1 {
+    margin-bottom: var(--space-lg);
 
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 400;
-    line-height: 1.1;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
 }
 
-.timeline-page>div:first-child p {
+.timeline-page>div:first-child p:last-child {
+    max-width: 600px;
+
     color: var(--color-text-muted);
+    line-height: 1.7;
 }
 
 /* Timeline */

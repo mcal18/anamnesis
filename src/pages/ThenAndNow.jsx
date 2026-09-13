@@ -22,6 +22,7 @@ function ThenAndNow() {
                 setMemories(savedMemories)
 
                 const reflectionsEntries = {}
+
                 for (const memory of savedMemories) {
                     const memoryReflections = await getReflectionsForMemory(
                         memory.id,
@@ -42,29 +43,28 @@ function ThenAndNow() {
         loadMemories()
     }, [user])
 
-    if(loading) {
+    if (loading) {
         return <p>Loading memories...</p>
     }
 
     return (
         <section className="then-and-now-page">
-            <button
-                className="then-and-now-back"
-                onClick={() => window.history.back()}
-            >
-                Back
-            </button>
-            <div>
+            <div className="then-and-now-header">
+                <p className="then-and-now-eyebrow">REFLECT</p>
                 <h1>Then & Now</h1>
+                <p className="then-and-now-description">
+                    See what has changed between the person you were and the person you are becoming.
+                </p>
             </div>
 
             {memories.length === 0 ? (
                 <p>No memories yet.</p>
             ) : (
-                <div>
+                <div className="then-and-now-list">
                     {memories.map((memory) => (
                         <article key={memory.id}>
                             <h2>{memory.title}</h2>
+
                             <div>
                                 <h3>Then</h3>
                                 <p>{memory.content}</p>
@@ -84,6 +84,13 @@ function ThenAndNow() {
                     ))}
                 </div>
             )}
+
+            <button
+                className="then-and-now-back"
+                onClick={() => window.history.back()}
+            >
+                Back
+            </button>
         </section>
     )
 }

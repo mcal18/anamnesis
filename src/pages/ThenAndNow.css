@@ -1,16 +1,24 @@
 .then-and-now-page {
     max-width: 1000px;
-    margin: 0 auto;
 }
 
 /* Header */
-.then-and-now-page>div:first-child {
+
+.then-and-now-header {
     max-width: 700px;
     margin-bottom: var(--space-3xl);
 }
 
-.then-and-now-page h1 {
+.then-and-now-eyebrow {
     margin-bottom: var(--space-md);
+
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--color-text-muted);
+}
+
+.then-and-now-header h1 {
+    margin-bottom: var(--space-lg);
 
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -19,7 +27,7 @@
     letter-spacing: -0.02em;
 }
 
-.then-and-now-page>div:first-child p {
+.then-and-now-description {
     max-width: 600px;
 
     color: var(--color-text-muted);
@@ -27,13 +35,14 @@
 }
 
 /* Memories */
-.then-and-now-page>div:not(:first-child) {
+
+.then-and-now-list {
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
 }
 
-.then-and-now-page article {
+.then-and-now-list article {
     padding: var(--space-2xl);
 
     border: 1px solid var(--color-paper-dark);
@@ -41,9 +50,19 @@
 
     background-color: var(--color-surface);
     box-shadow: var(--shadow-soft);
+
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-normal);
 }
 
-.then-and-now-page article h2 {
+.then-and-now-list article:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(37, 35, 31, 0.08);
+}
+
+.then-and-now-list article h2 {
+    max-width: 700px;
     margin-bottom: var(--space-xl);
 
     font-family: var(--font-display);
@@ -53,15 +72,20 @@
 }
 
 /* Then / Now */
-.then-and-now-page article>div {
+
+.then-and-now-list article>div {
     padding: var(--space-lg) 0;
 }
 
-.then-and-now-page article>div+div {
+.then-and-now-list article>div:first-of-type {
+    padding-top: 0;
+}
+
+.then-and-now-list article>div+div {
     border-top: var(--border-thin);
 }
 
-.then-and-now-page article h3 {
+.then-and-now-list article h3 {
     margin-bottom: var(--space-sm);
 
     font-family: var(--font-display);
@@ -72,35 +96,40 @@
     text-transform: uppercase;
 }
 
-.then-and-now-page article>div:first-of-type h3 {
+.then-and-now-list article>div:first-of-type h3 {
     color: var(--color-memory);
 }
 
-.then-and-now-page article>div:nth-of-type(2) h3 {
+.then-and-now-list article>div:nth-of-type(2) h3 {
     color: var(--color-returned);
+
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
 }
 
-.then-and-now-page article p {
+.then-and-now-list article p {
     max-width: 700px;
 
     line-height: 1.8;
 }
 
-.then-and-now-page article>div:first-of-type p {
+.then-and-now-list article>div:first-of-type p {
     color: var(--color-text);
 }
 
-.then-and-now-page article>div:nth-of-type(2) {
+.then-and-now-list article>div:nth-of-type(2) {
     padding-bottom: 0;
 }
 
-.then-and-now-page article>div:nth-of-type(2) p {
+.then-and-now-list article>div:nth-of-type(2) p {
     color: var(--color-text-muted);
 }
 
 /* Back */
+
 .then-and-now-back {
-    margin-top: var(--space-2xl);
+    margin-top: var(--space-xl);
 
     padding: 0;
 
@@ -117,41 +146,26 @@
     color: var(--color-text);
 }
 
-.then-and-now-page article {
-    transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-normal);
-}
-
-.then-and-now-page article:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(37, 35, 31, 0.08);
-}
-
-.then-and-now-page article h2 {
-    max-width: 700px;
-}
-
-.then-and-now-page article > div:first-of-type {
-    padding-top: 0;
-}
-
-.then-and-now-page article > div:nth-of-type(2) h3 {
-    font-style: italic;
-    text-transform: none;
-    letter-spacing: 0;
-}
+/* Mobile */
 
 @media (max-width: 700px) {
-    .then-and-now-page article {
+    .then-and-now-header {
+        margin-bottom: var(--space-2xl);
+    }
+
+    .then-and-now-header h1 {
+        font-size: clamp(2.5rem, 12vw, 3.5rem);
+    }
+
+    .then-and-now-list article {
         padding: var(--space-lg);
     }
 
-    .then-and-now-page article h2 {
+    .then-and-now-list article h2 {
         font-size: 1.5rem;
     }
 
-    .then-and-now-page article > div {
+    .then-and-now-list article>div {
         padding: var(--space-md) 0;
     }
 }

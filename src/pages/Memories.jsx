@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createMemory, getUserMemories } from '../services/memoryService'
+import { createMemory, getUserMemories, deleteMemory } from '../services/memoryService'
 import { auth } from '../services/firebase'
 import './Memories.css'
 
@@ -38,6 +38,27 @@ function Memories() {
     useEffect(() => {
         loadMemories()
     }, [])
+
+    const handleDelete = async (memoryId) => {
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this memory? This cannot be undone.'
+        )
+
+        if (!confirmed) {
+            return
+        }
+
+        try {
+            await deleteMemory(memoryId, auth.currentUser.uid)
+
+            setMemories((currentMemories) =>
+                currentMemories.filter((memory) => memory.id !== memoryId)
+            )
+        } catch (error) {
+            console.error('Error deleting memory:', error)
+        }
+    }
+
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -109,6 +130,13 @@ function Memories() {
                             <h3>{memory.title}</h3>
                             <p>{memory.date}</p>
                             <p>{memory.content}</p>
+
+                            <button
+                                type="button"
+                                onClick={() => handleDelete(memory.id)}
+                            >
+                                Delete
+                            </button>
                         </article>
                     ))}
                 </div>
@@ -122,6 +150,7 @@ function Memories() {
                         type="text"
                         placeholder="A name for this memory"
                         value={formData.title}
+                        required
                         onChange={(event) =>
                             setFormData({
                                 ...formData,
@@ -137,6 +166,7 @@ function Memories() {
                         id="memory-date"
                         type="date"
                         value={formData.date}
+                        required
                         onChange={(event) =>
                             setFormData({
                                 ...formData,
@@ -153,6 +183,7 @@ function Memories() {
                         rows="8"
                         placeholder="Write what you want your future self to remember..."
                         value={formData.content}
+                        required
                         onChange={(event) =>
                             setFormData({
                                 ...formData,
@@ -218,5 +249,4 @@ function Memories() {
         </section>
     )
 }
-
 export default Memories

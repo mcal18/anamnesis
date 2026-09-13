@@ -15,7 +15,7 @@ function FutureMe() {
     const handleSubmit = async (event) => {
         event.preventDefault()
 
-        if(!title.trim() || !content.trim() || !unlockDate) {
+        if (!title.trim() || !content.trim() || !unlockDate) {
             return
         }
 
@@ -42,50 +42,57 @@ function FutureMe() {
 
     return (
         <section className="future-me-page">
-            <div>
+            <div className="future-me-header">
+                <p className="future-me-eyebrow">IMAGINE</p>
                 <h1>Future Me</h1>
-
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="future-title">Title</label>
-                        <input
-                            id="future-title"
-                            type="text"
-                            value={title}
-                            onChange={(event) => setTitle(event.target.value)}
-                            placeholder="A letter to my future self"
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="future-content">Message</label>
-                        <TextArea
-                            value={content}
-                            onChange={(event) => setContent(event.target.value)}
-                            placeholder="What do you want your future self to remember?"
-                            rows={8}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="future-unlock">Unlock date</label>
-                        <input
-                            id="future-unlock"
-                            type="date"
-                            value={unlockDate}
-                            onChange={(event) => setUnlockDate(event.target.value)}
-                        />
-                    </div>
-
-                    <button type="submit">
-                        Seal for the Future
-                    </button>
-
-                    {successMessage && (
-                        <p>{successMessage}</p>
-                    )}
-                </form>
+                <p className="future-me-description">
+                    Leave something behind for the person your are becoming.
+                </p>
             </div>
+
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="future-title">Title</label>
+                    <input
+                        id="future-title"
+                        type="text"
+                        value={title}
+                        required
+                        onChange={(event) => setTitle(event.target.value)}
+                        placeholder="A letter to my future self"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="future-content">Message</label>
+                    <TextArea
+                        value={content}
+                        required
+                        onChange={(event) => setContent(event.target.value)}
+                        placeholder="What do you want your future self to remember?"
+                        rows={8}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="future-unlock">Unlock date</label>
+                    <input
+                        id="future-unlock"
+                        type="date"
+                        value={unlockDate}
+                        required
+                        onChange={(event) => setUnlockDate(event.target.value)}
+                    />
+                </div>
+
+                <button type="submit">
+                    Seal for the Future
+                </button>
+
+                {successMessage && (
+                    <p>{successMessage}</p>
+                )}
+            </form>
         </section>
     )
 }

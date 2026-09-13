@@ -49,7 +49,7 @@ function Capsules() {
     return (
         <section className="capsule-page">
             <div className="capsules-header">
-                <p className="capsules-eyebrow">RETURN</p>
+                <p className="capsules-eyebrow">SEAL</p>
 
                 <h1>Time Capsules</h1>
 

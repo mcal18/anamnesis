@@ -40,6 +40,7 @@ function Timeline() {
     return (
         <section className="timeline-page">
             <div>
+                <p className="timeline-eyebrow">REMEMBER</p>
                 <h1>Timeline</h1>
                 <p>A record of the moments you chose to keep.</p>
             </div>

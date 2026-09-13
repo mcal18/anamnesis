@@ -8,6 +8,8 @@ import {
     doc,
     updateDoc,
     getDoc,
+    deleteDoc,
+    writeBatch,
     serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
@@ -66,7 +68,7 @@ export async function markMemoryAsOpened(memoryId) {
     await updateDoc(memoryRef, {
         opened: true,
     })
-} 
+}
 
 
 export async function getMemory(memoryId) {
@@ -112,7 +114,7 @@ export async function getReflectionsForMemory(memoryId, userId) {
         id: doc.id,
         ...doc.data(),
     }))
-}   
+}
 
 export async function getMemoryWithReflections(memoryId, userId) {
     if (!memoryId || !userId) {
@@ -141,7 +143,7 @@ export async function createFutureLetter(userId, letterData) {
     const docRef = await addDoc(memoryRef, {
         userId,
         title: letterData.title,
-        content:letterData.content,
+        content: letterData.content,
         unlockDate: letterData.unlockDate,
         date: new Date().toLocaleDateString('en-CA'),
         whyItMattered: '',
@@ -152,4 +154,24 @@ export async function createFutureLetter(userId, letterData) {
     })
 
     return docRef.id
+}
+
+export async function deleteMemory(memoryId, userId) {
+    const memoryRef = doc(db, 'memories', memoryId)
+    const reflectionsRef = collection(db, 'reflections')
+    const reflectionsQuery = query(
+        reflectionsRef,
+        where('memoryId', '==', memoryId),
+        where('userId', '==', userId)
+    )
+    const snapshot = await getDocs(reflectionsQuery)
+    const batch = writeBatch(db)
+
+    snapshot.docs.forEach((reflection) => {
+        batch.delete(doc(db, 'reflections', reflection.id))
+    })
+
+    batch.delete(memoryRef)
+
+    await batch.commit()
 }

@@ -93,3 +93,9 @@ label {
   color: var(--color-text-muted);
   font-size: 0.9rem;
 }
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
