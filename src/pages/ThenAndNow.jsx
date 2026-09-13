@@ -58,7 +58,12 @@ function ThenAndNow() {
             </div>
 
             {memories.length === 0 ? (
-                <p>No memories yet.</p>
+                <div className="then-and-now-empty">
+                    <p>No memories yet.</p>
+                    <span>
+                        The memories you preserve and reflect on will appear here.
+                    </span>
+                </div>
             ) : (
                 <div className="then-and-now-list">
                     {memories.map((memory) => (

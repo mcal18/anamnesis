@@ -75,6 +75,8 @@
     padding: var(--space-2xl);
 
     border: var(--border-thin);
+    border-radius: var(--radius-lg);
+
     background-color: var(--color-surface);
 
     text-align: center;

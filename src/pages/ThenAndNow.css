@@ -34,6 +34,36 @@
     line-height: 1.7;
 }
 
+/* Empty state */
+.then-and-now-empty {
+    padding: var(--space-3xl) var(--space-2xl);
+
+    border: 1px solid var(--color-paper-dark);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--color-surface);
+
+    text-align: center;
+}
+
+.then-and-now-empty p {
+    margin-bottom: var(--space-sm);
+
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+}
+
+.then-and-now-empty span {
+    display: block;
+
+    max-width: 420px;
+    margin: 0 auto;
+
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
 /* Memories */
 
 .then-and-now-list {
@@ -167,5 +197,9 @@
 
     .then-and-now-list article>div {
         padding: var(--space-md) 0;
+    }
+
+    .then-and-now-empty {
+        padding: var(--space-2xl) var(--space-xl);
     }
 }
