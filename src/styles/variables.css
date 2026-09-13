@@ -11,9 +11,17 @@
     --color-accent: #6b6254;
     --color-accent-dark: #4f493f;
 
+    --color-paper-dark: #e2dacb;
+    --color-ink-light: #918a7d;
+
+    --color-memory: #8b7d6d;
+    --color-returned: #6f7f72;
+    --color-future: #88756a;
+
     /* Typography */
     --font-display: Georgia, 'Times New Roman', serif;
     --font-body: Arial, sans-serif;
+    --font-handwritten: 'Brush Script MT', cursive;
 
     /* Spacing */
     --space-xs: 0.25rem;
@@ -34,4 +42,11 @@
     --content-width: 1200px;
     --radius-sm: 4px;
     --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+
+    /* Motion */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 400ms ease;
 }

@@ -6,11 +6,13 @@ import './Capsules.css'
 
 function Capsules() {
     const [memories, setMemories] = useState([])
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
         const loadUnlockedMemories = async () => {
             if (!auth.currentUser) {
+                setLoading(false)
                 return
             }
 
@@ -20,8 +22,10 @@ function Capsules() {
                 )
 
                 setMemories(unlockedMemories)
+                setLoading(false)
             } catch (error) {
                 console.error('Error loading unlocked memories:', error)
+                setLoading(false)
             }
         }
 
@@ -36,6 +40,10 @@ function Capsules() {
         } catch (error) {
             console.error('Error marking memory as opened:', error)
         }
+    }
+
+    if(loading) {
+        return <p>Loading memories...</p>
     }
 
     return (

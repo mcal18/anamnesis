@@ -1,4 +1,4 @@
-@import './styles//variables.css';
+@import './styles/variables.css';
 
 * {
   margin: 0;
@@ -8,6 +8,7 @@
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -31,4 +32,64 @@ button {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+p {
+  margin-top: 0;
+}
+
+::selection {
+  background-color: var(--color-paper-dark);
+  color: var(--color-text);
+}
+
+input,
+textarea,
+.text-area {
+  width: 100%;
+
+  padding: var(--space-sm) var(--space-md);
+
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-surface);
+  color: var(--color-text);
+
+  outline: none;
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+input:focus,
+textarea:focus,
+.text-area:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(107, 98, 84, 0.1);
+}
+
+textarea,
+.text-area {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-xs);
+
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
 }

@@ -8,18 +8,46 @@
     border: 1px solid var(--color-accent);
     border-radius: var(--radius-sm);
 
-    background-color: var(--color-accent);
-    color: var(--color-surface);
-
     font-family: var(--font-body);
     font-size: 0.9rem;
 
     transition: 
-        background-color 0.2s ease,
-        border-color 0.2s ease;
+        background-color var(--transition-fast),
+        border-color var(--transition-fast);
+        color: var(--transition-fast);
+        transform: var(--transition-fast);
 }
 
-.button:hover {
+/* Primary */
+.button-primary {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+}
+.button-primary:hover {
     background-color: var(--color-accent-dark);
     border-color: var(--color-accent-dark);
+}
+
+/* Secondary */
+.button-secondary {
+    background-color: transparent;
+    color: var(--color-accent-dark);
+}
+.button-secondary:hover {
+    background-color: var(--color-surface-muted);
+}
+
+/* Ghost */
+.button-ghost {
+    border-color: transparent;
+    background-color: transparent;
+    color: var(--color-text-muted);
+}
+.button-ghost:hover {
+    color: var(--color-text);
+    background-color: var(--color-surface-muted);
+}
+
+.button:active {
+    transform: translateY(1px);
 }

@@ -1,0 +1,106 @@
+.future-me-page {
+    max-width: 760px;
+}
+
+/* Header */
+.future-me-page>div:first-child {
+    margin-bottom: var(--space-3xl);
+}
+
+.future-me-page h1 {
+    margin-bottom: var(--space-md);
+
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+/* Form */
+.future-me-page form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.future-me-page form>div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.future-me-page label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+}
+
+.future-me-page input {
+    width: 100%;
+
+    padding: var(--space-md);
+
+    border: var(--border-thin);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface);
+    color: var(--color-text);
+
+    outline: none;
+
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.future-me-page input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(107, 98, 84, 0.1);
+}
+
+.future-me-page input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
+/* Seal */
+.future-me-page button {
+    align-self: flex-start;
+
+    padding: var(--space-sm) var(--space-lg);
+
+    border: 1px solid var(--color-future);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-future);
+    color: var(--color-surface);
+
+    font-size: 0.9rem;
+
+    transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.future-me-page button:hover {
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+}
+
+.future-me-page form > p {
+    margin: 0;
+
+    color: var(--color-returned);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 700px) {
+    .future-me-page > div:first-child {
+        margin-bottom: var(--space-2xl);
+    }
+
+    .future-me-page h1 {
+        font-size: clamp(2.5rem, 12vw, 3.5rem);
+    }
+}

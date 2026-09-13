@@ -16,17 +16,22 @@ function Memories() {
 
     const [successMessage, setSuccessMessage] = useState('')
     const [memories, setMemories] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const loadMemories = async () => {
         if (!auth.currentUser) {
+            setLoading(false)
             return
         }
 
         try {
             const userMemories = await getUserMemories(auth.currentUser.uid)
             setMemories(userMemories)
+
+            setLoading(false)
         } catch (error) {
             console.error('Error loading memories', error)
+            setLoading(false)
         }
     }
 
@@ -71,6 +76,10 @@ function Memories() {
         } catch (error) {
             console.error('Error saving memory:', error)
         }
+    }
+
+    if (loading) {
+        return <p>Loading memories...</p>
     }
 
     return (

@@ -96,3 +96,60 @@ export async function createReflection(memoryId, userId, content) {
 
     return docRef.id
 }
+
+export async function getReflectionsForMemory(memoryId, userId) {
+    const reflectionsRef = collection(db, 'reflections')
+
+    const reflectionsQuery = query(
+        reflectionsRef,
+        where('memoryId', '==', memoryId),
+        where('userId', '==', userId)
+    )
+
+    const snapshot = await getDocs(reflectionsQuery)
+
+    return snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }))
+}   
+
+export async function getMemoryWithReflections(memoryId, userId) {
+    if (!memoryId || !userId) {
+        return []
+    }
+
+    const reflectionsRef = collection(db, 'reflections')
+
+    const reflectionsQuery = query(
+        reflectionsRef,
+        where('memoryId', '==', memoryId),
+        where('userId', '==', userId)
+    )
+
+    const snapshot = await getDocs(reflectionsQuery)
+
+    return snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }))
+}
+
+export async function createFutureLetter(userId, letterData) {
+    const memoryRef = collection(db, 'memories')
+
+    const docRef = await addDoc(memoryRef, {
+        userId,
+        title: letterData.title,
+        content:letterData.content,
+        unlockDate: letterData.unlockDate,
+        date: new Date().toLocaleDateString('en-CA'),
+        whyItMattered: '',
+        sealed: true,
+        opened: false,
+        type: 'future-letter',
+        createdAt: serverTimestamp(),
+    })
+
+    return docRef.id
+}
