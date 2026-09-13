@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createMemory, getUserMemories, deleteMemory, } from '../services/memoryService'
 import { auth } from '../services/firebase'
+import { FiTrash2 } from 'react-icons/fi'
 import './Memories.css'
 
 
@@ -132,9 +133,11 @@ function Memories() {
 
                             <button
                                 type="button"
+                                className="memory-delete"
                                 onClick={() => handleDelete(memory.id)}
+                                aria-label={`Delete ${memory.title}`}
                             >
-                                Delete
+                                <FiTrash2 />
                             </button>
                         </article>
                     ))}

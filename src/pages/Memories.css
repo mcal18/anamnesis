@@ -245,29 +245,45 @@
     transform: translateY(1px);
 }
 
-.saved-memory button {
+.memory-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     margin-top: var(--space-md);
 
-    padding: var(--space-xs) var(--space-sm);
+    width: 2rem;
+    height: 2rem;
+
+    padding: 0;
 
     border: none;
+    border-radius: var(--radius-sm);
+
     background-color: transparent;
-
     color: var(--color-text-muted);
-    font-size: 0.8rem;
 
-    text-decoration: underline;
-    text-decoration-color: var(--border-color);
-    text-underline-offset: 4px;
+    font-size: 1rem;
 
+    opacity: 0;
     transition:
         color var(--transition-fast),
         background-color var(--transition-fast);
 }
 
-.saved-memory button:hover {
+.saved-memory:hover .memory-delete,
+.memory-delete:focus-visible {
+    opacity: 1;
+}
+
+.memory-delete:hover {
     color: var(--color-text);
     background-color: var(--color-surface-muted);
+}
+
+.memory-delete svg {
+    width: 1rem;
+    height: 1rem;
 }
 
 @media (max-width: 700px) {
