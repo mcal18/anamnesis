@@ -16,7 +16,11 @@ function Login() {
             await signInWithEmailAndPassword(auth, email, password)
             console.log('Login successful')
         } catch (error) {
-            setError(error.message)
+            if (error.code === 'auth/invalid-credential') {
+                setError('Incorrect email or password.')
+            } else {
+                setError('Something went wrong. Please try again.')
+            }
         }
     }
 

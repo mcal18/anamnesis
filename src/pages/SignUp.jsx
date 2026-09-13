@@ -26,10 +26,16 @@ function SignUp() {
                 displayName,
                 userCredential.user.email
             )
-            
+
             console.log('Account created successfully')
         } catch (error) {
-            setError(error.message)
+            if (error.code === 'auth/email-already-in-use') {
+                setError('An account with this email already exists.')
+            } else if (error.code === 'auth/weak-password') {
+                setError('Your password must be at least 6 characters.')
+            } else {
+                setError('Something went wrong. Please try again.')
+            }
         }
     }
 
