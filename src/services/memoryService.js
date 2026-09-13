@@ -6,6 +6,7 @@ import {
     where,
     orderBy,
     doc,
+    setDoc,
     updateDoc,
     getDoc,
     deleteDoc,
@@ -14,7 +15,6 @@ import {
 } from "firebase/firestore";
 import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { db, auth } from "./firebase";
-import { type } from "firebase/firestore/pipelines";
 
 export async function createMemory(userId, memoryData) {
     const memoryRef = collection(db, 'memories')
@@ -257,5 +257,30 @@ export async function exportUserData(userId) {
     return {
         memories: cleanedMemories,
         reflections,
+    }
+}
+
+export async function createUserProfile(userId, displayName, email) {
+    const userRef = doc(db, 'users', userId)
+
+    await setDoc(userRef, {
+        displayName: displayName.trim(),
+        email,
+        createdAt: serverTimestamp(),
+    })
+}
+
+export async function getUserProfile(userId) {
+    const userRef = doc(db, 'users', userId)
+
+    const userSnapshot = await getDoc(userRef)
+
+    if (!userSnapshot.exists()) {
+        return null
+    }
+
+    return {
+        id: userSnapshot.id,
+        ...userSnapshot.data(),
     }
 }

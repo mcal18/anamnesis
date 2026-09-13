@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../services/firebase'
+import { createUserProfile } from '../services/memoryService'
+import { auth } from '../services/firebase';
 import './SignUp.css'
 
 function SignUp() {
+    const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -13,7 +15,18 @@ function SignUp() {
         setError('')
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            )
+
+            await createUserProfile(
+                userCredential.user.uid,
+                displayName,
+                userCredential.user.email
+            )
+            
             console.log('Account created successfully')
         } catch (error) {
             setError(error.message)
@@ -32,6 +45,19 @@ function SignUp() {
                 </p>
 
                 <form className="signup-form" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="signup-name">
+                            What should we call you?
+                        </label>
+                        <input
+                            id="signup-name"
+                            type="text"
+                            value={displayName}
+                            onChange={(event) => setDisplayName(event.target.value)}
+                            required
+                        />
+                    </div>
+
                     <div className="form-group">
                         <label htmlFor="signup-email">Email</label>
                         <input

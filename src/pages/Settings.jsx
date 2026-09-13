@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
+    getUserProfile,
     exportUserData,
     deleteUserData,
     reauthenticateUser,
@@ -7,10 +9,33 @@ import {
 } from '../services/memoryService'
 import { auth } from '../services/firebase'
 
+import profileMoth from '../assets/anamnesis-moth.png'
 import './Settings.css'
 
 function Settings() {
     const navigate = useNavigate()
+    const [profile, setProfile] = useState(null)
+    const [loadingProfile, setLoadingProfile] = useState(true)
+
+    useEffect(() => {
+        const loadProfile = async () => {
+            if (!auth.currentUser) {
+                setLoadingProfile(false)
+                return
+            }
+
+            try {
+                const userProfile = await getUserProfile(auth.currentUser.uid)
+                setProfile(userProfile)
+            } catch (error) {
+                console.error('Error loading profile:', error)
+            } finally {
+                setLoadingProfile(false)
+            }
+        }
+
+        loadProfile()
+    }, [])
 
     const handleExportData = async () => {
         if (!auth.currentUser) {
@@ -77,6 +102,23 @@ function Settings() {
                     Manage your account and your data.
                 </p>
             </div>
+
+            {!loadingProfile && profile && (
+                <div className="settings-profile">
+                    <h2>Your profile</h2>
+                    <img
+                        className="settings-profile-avatar"
+                        src={profileMoth}
+                        alt="Profile avatar"
+                    />
+                    <p className="settings-profile-name">
+                        {profile.displayName}
+                    </p>
+                    <p className="settings-profile-email">
+                        {profile.email}
+                    </p>
+                </div>
+            )}
 
             <div className="settings-section">
                 <h2>Your data</h2>
