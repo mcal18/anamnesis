@@ -16,7 +16,6 @@ import Capsules from './pages/Capsules'
 import ThenAndNow from './pages/ThenAndNow'
 import FutureMe from './pages/FutureMe'
 import Echo from './pages/Echo'
-import Settings from './pages/Settings'
 
 
 function App() {
@@ -81,11 +80,6 @@ function App() {
           <Route path="/echo/:memoryId" element={
             <ProtectedRoute user={user}>
               <Echo />
-            </ProtectedRoute>}
-          />
-          <Route path="/settings" element={
-            <ProtectedRoute user={user}>
-              <Settings />
             </ProtectedRoute>}
           />
         </Routes>

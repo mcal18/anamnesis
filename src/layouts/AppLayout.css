@@ -9,20 +9,43 @@
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .app-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-md);
+
+    width: fit-content;
+
+    flex-shrink: 0;
+
+    color: var(--color-text);
+}
+
+.app-logo img{
+    display: block;
+
+    width: 7.5rem;
+    height: 7.5rem;
+
+    object-fit: contain;
+}
+
+.app-logo span{
+    position: relative;
+
+    display: inline-block;
+
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 0.18em;
-    color: var(--color-text);
-
-    position: relative;
+    line-height: 1.2;
 }
 
-.app-logo::after {
+.app-logo span::after {
     content: '';
     display: block;
 

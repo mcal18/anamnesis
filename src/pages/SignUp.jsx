@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { createUserProfile } from '../services/memoryService'
@@ -95,6 +96,11 @@ function SignUp() {
                     <button className="signup-submit" type="submit">
                         Create Account
                     </button>
+
+                    <p className="siunup-switch">
+                        Already have an account?{' '}
+                        <Link to="/login">Log in here</Link>
+                    </p>
                 </form>
             </div>
         </section>

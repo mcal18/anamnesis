@@ -2,10 +2,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { useState } from "react";
+import SettingsModal from "./SettingsModal";
 import './Navigation.css'
 
 function Navigation() {
     const navigate = useNavigate()
+    const [settingsOpen, setSettingsOpen] = useState(false)
 
     const handleLogout = async () => {
         try {
@@ -58,7 +61,7 @@ function Navigation() {
                 <button
                     type="button"
                     className="navigation-icon"
-                    onClick={() => navigate('/settings')}
+                    onClick={() => setSettingsOpen(true)}
                     aria-label="Settings"
                 >
                     <FiSettings />
@@ -72,6 +75,11 @@ function Navigation() {
                     <FiLogOut />
                 </button>
             </div>
+            {settingsOpen && (
+                <SettingsModal 
+                    onClose={() => setSettingsOpen(false)}
+                />
+            )}
         </nav>
     )
 }

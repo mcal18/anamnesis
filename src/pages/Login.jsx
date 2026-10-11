@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { auth } from '../services/firebase'
 import './Login.css'
 
@@ -18,6 +19,26 @@ function Login() {
         } catch (error) {
             if (error.code === 'auth/invalid-credential') {
                 setError('Incorrect email or password.')
+            } else {
+                setError('Something went wrong. Please try again.')
+            }
+        }
+    }
+
+    const handleForgotPassword = async () => {
+        if (!email.trim()) {
+            setError('Enter your email address first.')
+            return
+        }
+
+        try {
+            await sendPasswordResetEmail(auth, email)
+            setError('Password reset email sent.')
+        } catch (error) {
+            if (error.code === 'auth/user-not-found') {
+                setError('No account was found with that email.')
+            } else if (error.code === 'auth/invalid-email') {
+                setError('Please enter a valid email address.')
             } else {
                 setError('Something went wrong. Please try again.')
             }
@@ -66,6 +87,18 @@ function Login() {
 
                     <button className="login-submit" type="submit">
                         Sign In
+                    </button>
+
+                    <p className="login-switch">
+                        Don't have an account?{' '}
+                        <Link to="/signup">Sign up here.</Link>
+                    </p>
+
+                    <button
+                        type="button"
+                        className="login-forgot"
+                        onClick={handleForgotPassword}>
+                        Forgot Password?
                     </button>
                 </form>
             </div>

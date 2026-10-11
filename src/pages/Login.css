@@ -93,6 +93,47 @@
     transform: translateY(1px);
 }
 
+.login-switch,
+.login-forgot {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.login-switch {
+    margin-top: var(--space-lg);
+    text-align: center;
+}
+
+.login-switch a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration: var(--color-border);
+    text-underline-offset: 3px;
+}
+
+.login-switch a:hover {
+    color: var(--color-accent-dark);
+}
+
+.login-forgot {
+    display: block;
+
+    margin: var(--space-sm) auto 0;
+
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 3px;
+}
+
+.login-forgot:hover {
+    color: var(--color-text);
+}
+
 @media (max-width: 700px) {
     .login-content {
         padding-top: var(--space-md);
