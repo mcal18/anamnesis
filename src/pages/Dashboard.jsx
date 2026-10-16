@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getUnlockedMemories } from "../services/memoryService";
+import { getUnlockedMemories, getUserProfile } from "../services/memoryService";
 import { auth } from '../services/firebase';
 import Button from '../components/Button'
 import './Dashboard.css'
@@ -9,6 +9,7 @@ function Dashboard() {
     const navigate = useNavigate()
     const [memories, setMemories] = useState([])
     const [loading, setLoading] = useState(true)
+    const [profile, setProfile] = useState(null)
 
     useEffect(() => {
         const loadMemories = async () => {
@@ -33,12 +34,32 @@ function Dashboard() {
         loadMemories()
     }, [])
 
+    useEffect(() => {
+        const loadProfile = async () => {
+            if (!auth.currentUser) {
+                return
+            }
+
+            try {
+                const userProfile = await getUserProfile(auth.currentUser.uid)
+                setProfile(userProfile)
+            } catch (error) {
+                console.error('Error loading profile:', error)
+            }
+        }
+        loadProfile()
+    }, [])
+
     return (
         <section className="dashboard-page">
             <div className="dashboard-intro">
                 <p className="dashboard-eyebrow">ANAMNESIS</p>
 
-                <h1>What is worth remembering today?</h1>
+                <h1>
+                    {profile?.displayName
+                        ? `What is worth remembering today, ${profile.displayName}?`
+                        : 'What is worth remembering today?'}
+                </h1>
 
                 <p className="dashboard-description">
                     A place to preserve the moments, thoughts, and pieces of life
@@ -73,6 +94,9 @@ function Dashboard() {
                                 key={memory.id}
                                 onClick={() => navigate(`/echo/${memory.id}`)}
                             >
+                                <p className="dashboard-memory-date">
+                                    {memory.date}
+                                </p>
                                 <h3>{memory.title}</h3>
                                 <p>{memory.content}</p>
                             </article>
