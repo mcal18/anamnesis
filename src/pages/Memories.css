@@ -65,13 +65,21 @@
         box-shadow var(--transition-normal);
 }
 
+.saved-memory:nth-child(even) {
+    transform: rotate(0.15deg);
+}
+
+.saved-memory:nth-child(odd) {
+    transform: rotate(-0.15deg);
+}
+
 .saved-memory:last-child {
     margin-bottom: 0;
 }
 
 .saved-memory:hover {
     background-color: var(--color-surface);
-    transform: translateY(-3px);
+    transform: translateY(-3px) rotate(0deg);
     box-shadow:
         4px 5px 0 var(--color-paper-dark),
         0 8px 24px rgba(37, 35, 31, 0.09);
@@ -133,13 +141,52 @@
 /* Form */
 
 .memory-form {
-    padding-top: var(--space-2xl);
+    position: relative;
 
-    border-top: var(--border-thin);
+    padding: var(--space-2xl);
+    padding-top: calc(var(--space-2xl) + var(--space-sm));
+
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-surface);
+
+    box-shadow:
+        3px 3px 0 var(--color-paper-dark),
+        var(--shadow-soft);
 
     display: flex;
     flex-direction: column;
     gap: var(--space-2xl);
+}
+
+.memory-form::before {
+    content: '';
+
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+
+    width: 2rem;
+    height: 1px;
+
+    background-color: var(--color-border);
+}
+
+.memory-form::after {
+    content: '';
+
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+
+    width: 1.4rem;
+    height: 1.4rem;
+
+    border-top: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+
+    opacity: 0.6;
 }
 
 .form-group {
