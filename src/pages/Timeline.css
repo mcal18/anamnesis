@@ -95,10 +95,13 @@
     padding: var(--space-xl);
 
     border: 1px solid var(--color-paper-dark);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-sm);
 
     background-color: var(--color-surface);
-    box-shadow: var(--shadow-soft);
+
+    box-shadow:
+        3px 3px 0 var(--color-paper-dark),
+        var(--shadow-soft);
 
     transition:
         transform var(--transition-fast),
@@ -107,7 +110,26 @@
 
 .timeline-page article:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(37, 35, 31, 0.08);
+
+    box-shadow:
+        4px 5px 0 var(--color-paper-dark),
+        0 8px 24px rgba(37, 35, 31, 0.09);
+}
+
+.timeline-page article::after {
+    content: '';
+
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+
+    width: 1.4rem;
+    height: 1.4rem;
+
+    border-top: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+
+    opacity: 0.7;
 }
 
 .timeline-page article::before {
@@ -117,13 +139,14 @@
     top: calc(var(--space-xl) + 1px);
     left: calc(var(--space-xl) * -1 - 1px);
 
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
 
-    border: 1px solid var(--color-border);
-    border-radius: 50%;
+    border: 1px solid var(--color-accent);
 
     background-color: var(--color-background);
+
+    transform: rotate(45deg);
 }
 
 .timeline-page article h2 {
