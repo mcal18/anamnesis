@@ -73,13 +73,18 @@
 }
 
 .then-and-now-list article {
+    position: relative;
+
     padding: var(--space-2xl);
 
     border: 1px solid var(--color-paper-dark);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-sm);
 
     background-color: var(--color-surface);
-    box-shadow: var(--shadow-soft);
+
+    box-shadow:
+        3px 3px 0 var(--color-paper-dark),
+        var(--shadow-soft);
 
     transition:
         transform var(--transition-fast),
@@ -87,8 +92,26 @@
 }
 
 .then-and-now-list article:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(37, 35, 31, 0.08);
+    transform: translateY(-3px);
+    box-shadow:
+        4px 5px 0 var(--color-paper-dark),
+        0 8px 24px rgba(37, 35, 31, 0.09);
+}
+
+.then-and-now-list article::before {
+    content: '';
+
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+
+    width: 1.4rem;
+    height: 1.4rem;
+
+    border-top: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+
+    opacity: 0.7;
 }
 
 .then-and-now-list article h2 {
@@ -112,7 +135,10 @@
 }
 
 .then-and-now-list article>div+div {
-    border-top: var(--border-thin);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-xl);
+
+    border-top: 1px dashed var(--color-border);
 }
 
 .then-and-now-list article h3 {
@@ -150,6 +176,8 @@
 
 .then-and-now-list article>div:nth-of-type(2) {
     padding-bottom: 0;
+
+     margin-left: var(--space-md);
 }
 
 .then-and-now-list article>div:nth-of-type(2) p {

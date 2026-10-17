@@ -34,9 +34,51 @@
 
 /* Form */
 .future-me-page form {
+    position: relative;
+
+    padding: var(--space-2xl);
+
+    border: 1px solid var(--color-paper-dark);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-surface);
+
+    box-shadow:
+        3px 3px 0 var(--color-paper-dark),
+        var(--shadow-soft);
+    
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
+}
+
+.future-me-page form::before {
+    content: '';
+
+    position: absolute;
+    top: 0.9rem;
+    left: 0.9rem;
+
+    width: 2rem;
+    height: 1px;
+
+    background-color: var(--color-border);
+}
+
+.future-me-page form::after {
+    content: '';
+
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+
+    width: 1.4rem;
+    height: 1.4rem;
+
+    border-top: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+
+    opacity: 0.7;
 }
 
 .future-me-page form>div {
@@ -55,10 +97,11 @@
 
     padding: var(--space-md);
 
-    border: var(--border-thin);
-    border-radius: var(--radius-md);
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
 
-    background-color: var(--color-surface);
+    background-color: transparent;
     color: var(--color-text);
 
     outline: none;
@@ -69,8 +112,8 @@
 }
 
 .future-me-page input:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(107, 98, 84, 0.1);
+    border-bottom-color: var(--color-accent);
+    box-shadow: none;
 }
 
 .future-me-page input::placeholder {
@@ -90,20 +133,34 @@
     background-color: var(--color-future);
     color: var(--color-surface);
 
+    font-family: var(--font-display);
     font-size: 0.9rem;
+
+    box-shadow: 2px 2px 0 var(--color-paper-dark);
 
     transition:
         background-color var(--transition-fast),
         border-color var(--transition-fast),
         transform var(--transition-fast);
+        box-shadow: var(--transition-fast);
 }
 
 .future-me-page button:hover {
     background-color: var(--color-accent-dark);
     border-color: var(--color-accent-dark);
+
+    transform: translateY(-1px);
+
+    box-shadow: 3px 3px 0 var(--color-paper-dark);
 }
 
-.future-me-page form > p {
+.future-me-page button:active {
+    transform: translate(1px, 1px);
+
+    box-shadow: none;
+}
+
+.future-me-page form>p {
     margin: 0;
 
     color: var(--color-returned);

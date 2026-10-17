@@ -71,11 +71,13 @@
     padding: var(--space-2xl);
 
     border: 1px solid var(--color-paper-dark);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-sm);
 
     background-color: var(--color-surface);
 
-    box-shadow: var(--shadow-soft);
+    box-shadow:
+        3px 3px 0 var(--color-paper-dark),
+        var(--shadow-soft);
 
     transition:
         transform var(--transition-fast),
@@ -84,24 +86,46 @@
 }
 
 .capsule::before {
-    content: ''; 
+    content: '';
 
     position: absolute;
     top: var(--space-lg);
     right: var(--space-lg);
 
-    width: 8px;
-    height: 8px;
+    width: 1.5rem;
+    height: 1.5rem;
 
-    border: 1px solid var(--color-paper-dark);
-    border-radius: 50%;
+    border: 1px solid var(--color-border);
 
     background-color: var(--color-background);
+
+    transform: rotate(45deg);
+
+    opacity: 0.75;
+}
+
+.capsule::after {
+    content: '';
+
+    position: absolute;
+    top: 1.35rem;
+    right: 1.35rem;
+
+    width: 0.75rem;
+    height: 0.75rem;
+
+    border: 1px solid var(--color-border);
+
+    transform: rotate(45deg);
+
+    opacity: 0.45;
 }
 
 .capsule:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(37, 35, 31, 0.08);
+    transform: translateY(-3px);
+    box-shadow:
+        4px 5px 0 var(--color-paper-dark),
+        0 8px 24px rgba(37, 35, 31, 0.09);
     background-color: var(--color-surface);
 }
 
@@ -114,7 +138,7 @@
     line-height: 1.2;
 }
 
-.capsule > p {
+.capsule>p {
     margin-bottom: var(--space-2xl);
 
     max-width: 700px;
@@ -152,14 +176,35 @@
     flex-wrap: wrap;
     gap: var(--space-lg);
 
+    margin-top: var(--space-lg);
     padding-top: var(--space-lg);
 
-    border-top: var(--border-thin);
+    border-top: 1px solid var(--color-paper-dark);
 
     color: var(--color-text-muted);
     font-family: var(--font-display);
     font-size: 0.8rem;
     font-style: italic;
+}
+
+.capsule-dates span {
+    position: relative;
+    padding-left: var(--space-md);
+}
+
+.capsule-dates span::before {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    width: 4px;
+    height: 4px;
+
+    border: 1px solid var(--color-border);
+
+    transform: translateY(-50%) rotate(45deg);
 }
 
 /* Open */
@@ -181,8 +226,7 @@
     transition:
         background-color var(--transition-fast),
         color var(--transition-fast),
-        border-color var(--transition-fast)
-        transform var(--transition-fast);
+        border-color var(--transition-fast), transform var(--transition-fast);
 }
 
 .capsule-open:hover {
